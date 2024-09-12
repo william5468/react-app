@@ -33,9 +33,7 @@ const App: React.FC = () => {
 
   // Example interpretation function
   const interpretationMap = (values: number[]): string => {
-    const avg = values.reduce((a, b) => a + b, 0) / values.length;
-    if (isNaN(avg)) return "No values provided"; // Handle case with no values
-    return `Average: ${avg.toFixed(2)}`; // Return as a string
+    return values
   };
 
   // Define tests data with the correct type
