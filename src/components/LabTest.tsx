@@ -36,7 +36,7 @@ const LabTest: React.FC<LabTestProps> = ({
       <h4>{title}</h4>
       {tests.map((test) => (
         <div key={test.id} className="test-input">
-          <span>{test.name}</span>{test.description}{test.RI_Lowest}~{test.RI_Highest}
+          <span>{test.name}</span>Description: {test.description}&nbsp&nbsp&nbspReference interval:&nbsp{test.RI_Lowest}~{test.RI_Highest}
           <input
             type="number"
             onChange={handleChange(test.id)}
