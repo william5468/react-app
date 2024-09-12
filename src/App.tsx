@@ -63,7 +63,7 @@ const App: React.FC = () => {
     <div style={{ display: "flex", height: "100vh" }}>
       {/* Sidebar */}
       <div style={{ width: "300px", background: "#f4f4f4", padding: "30px" }}>
-        <h3>Lab Tests</h3>
+        <h3>Category</h3>
         {labTests.map((test) => (
           <button
             key={test.id}
