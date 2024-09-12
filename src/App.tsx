@@ -6,6 +6,9 @@ import LabTest from "./components/LabTest";
 interface Test {
   id: number;
   name: string;
+  description: string;
+  RI_Lowest: number;
+  RI_Highest: number;
 }
 
 // Define the structure for tests data
