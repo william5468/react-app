@@ -59,7 +59,7 @@ const App: React.FC = () => {
       { id: 9, name: "TB", description: "ALB low in liver disease", RI_Lowest: 0, RI_Highest: 19 },
       { id: 10, name: "CK", description: "Low ALB after burn", RI_Lowest: 39, RI_Highest: 308 },
       { id: 11, name: "FTP", description: "ALB low in nephrotic syndrome", RI_Lowest: 34, RI_Highest: 54 },
-      { id: 12, name: "URE/CRE", description: "Low ALB after GI bleeding", RI_Lowest: 34, RI_Highest: 54 },
+      { id: 12, name: "URE/CRE", description: "Low ALB after GI bleeding", RI_Lowest: 0, RI_Highest: 0 },
     ],
     2: [
       { id: 1, name: "ALB", description: "Low ALB suggests bad prognosis", RI_Lowest: 35, RI_Highest: 52 },
@@ -73,7 +73,7 @@ const App: React.FC = () => {
     ],
     4: [
       { id: 13, name: "PLT", description: "sepsis, leukaemia, DIC, MAHA", RI_Lowest: 145, RI_Highest: 370 },
-      { id: 17, name: "FIB", description: "sepsis, inflammation, liver", RI_Lowest: 34, RI_Highest: 54 },
+      { id: 17, name: "FIB", description: "sepsis, inflammation, liver", RI_Lowest: 0, RI_Highest: 0 },
       { id: 4, name: "CRP", description: "inflammation", RI_Lowest: 0, RI_Highest: 5 },
     ],    
     5: [
@@ -84,13 +84,13 @@ const App: React.FC = () => {
     ],     
     6: [
       { id: 21, name: "ALT", description: "Liver", RI_Lowest: 0, RI_Highest: 53 },
-      { id: 22, name: "AST", description: "ACET, Alcohol, acute liver damage", RI_Lowest: 34, RI_Highest: 54 },
-      { id: 23, name: "GGT", description: "Biliary tract, Drugs, Alcohol, liver", RI_Lowest: 34, RI_Highest: 54 },
+      { id: 22, name: "AST", description: "ACET, Alcohol, acute liver damage", RI_Lowest: 0, RI_Highest: 32 },
+      { id: 23, name: "GGT", description: "Biliary tract, Drugs, Alcohol, liver", RI_Lowest: 0, RI_Highest: 45 },
       { id: 9, name: "TB", description: "Biliary obstruction, Hemolysis, Liver", RI_Lowest: 0, RI_Highest: 19 },
       { id: 1, name: "ALB", description: "Low ALB suggests Malnutrition", RI_Lowest: 35, RI_Highest: 52 },
     ],  
     7: [
-      { id: 23, name: "GGT", description: "Biliary tract, Drugs, Alcohol, liver", RI_Lowest: 34, RI_Highest: 54 },
+      { id: 23, name: "GGT", description: "Biliary tract, Drugs, Alcohol, liver", RI_Lowest: 0, RI_Highest: 45 },
       { id: 24, name: "ALP", description: "Biliary tract, bone, intestine, placenta, APR", RI_Lowest: 43, RI_Highest: 105 },
     ],     
     8: [
@@ -98,7 +98,7 @@ const App: React.FC = () => {
       { id: 10, name: "CK", description: "Cardiac, Skeletal muscle", RI_Lowest: 39, RI_Highest: 308 },
       { id: 39, name: "AMY", description: "Pancreatitis", RI_Lowest: 33, RI_Highest: 120 },
       { id: 26, name: "HsTNI", description: "MI", RI_Lowest: 0, RI_Highest: 19.8 },
-      { id: 22, name: "AST", description: "ACET, Alcohol, acute liver damage", RI_Lowest: 34, RI_Highest: 54 },
+      { id: 22, name: "AST", description: "ACET, Alcohol, acute liver damage", RI_Lowest: 0, RI_Highest: 32 },
     ],    
     9: [
       { id: 7, name: "HB", description: "Hemorrhage, Hemolysis, Marrow insufficiency", RI_Lowest: 13.4, RI_Highest: 17.1 },
@@ -108,13 +108,13 @@ const App: React.FC = () => {
     10: [
       { id: 28, name: "PT", description: "liver, DIC, factor inhibitor / deficiency", RI_Lowest: 10, RI_Highest: 12.3 },
       { id: 29, name: "APTT", description: "liver, DIC, factor inhibitor / deficiency", RI_Lowest: 28.2, RI_Highest: 38.2 },
-      { id: 17, name: "FIB", description: "liver, sepsis", RI_Lowest: 34, RI_Highest: 54 },
-      { id: 30, name: "D-dimer", description: "DIC", RI_Lowest: 34, RI_Highest: 54 },
+      { id: 17, name: "FIB", description: "liver, sepsis", RI_Lowest: 0, RI_Highest: 0 },
+      { id: 30, name: "D-dimer", description: "DIC", RI_Lowest: 0, RI_Highest: 300 },
     ],    
     11: [
       { id: 31, name: "NA", description: "Hydration, ADH, cortisol, FT4, displacement, dilution, liver, kidney", RI_Lowest: 137, RI_Highest: 144 },
       { id: 32, name: "K", description: "CKD, PH, CK, HB, TLS, FT4", RI_Lowest: 3.5, RI_Highest: 4.5 },
-      { id: 33, name: "CL", description: "Anion gap calculation, CL wasting metabolic alkalosis", RI_Lowest: 34, RI_Highest: 54 },
+      { id: 33, name: "CL", description: "Anion gap calculation, CL wasting metabolic alkalosis", RI_Lowest: 98, RI_Highest: 107 },
     ],         
     12: [
       { id: 34, name: "PH", description: "Low PH suggests Acidosis, High PH suggests Alkalosis", RI_Lowest: 7.32, RI_Highest: 7.45 },
