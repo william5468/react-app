@@ -36,7 +36,13 @@ const App: React.FC = () => {
 
   // Example interpretation function
   const interpretationMap = (values: number[]): string => {
-    return values
+    const interpretations = values.map((value, index) => {
+      if (value < 34) return `Test ${index + 1} is below normal range.`;
+      if (value > 54) return `Test ${index + 1} is above normal range.`;
+      return `Test ${index + 1} is normal.`;
+    });
+  
+    return interpretations.join(" "); // Join interpretations into a single string
   };
 
   // Define tests data with the correct type
