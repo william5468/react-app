@@ -1,0 +1,21 @@
+/* src/LabTest.css */
+.lab-test-container {
+    background-color: rgba(128, 128, 128, 0.5); /* Half-transparent gray */
+    border-radius: 15px; /* Rounded edges */
+    padding: 20px;
+    margin: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .test-input {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100px; /* Fixed width for input */
+  }
