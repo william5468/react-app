@@ -88,31 +88,36 @@ const App = () => {
     };
 
     const results = {
-      ALB: tests.ALB?.value < tests.ALB?.RI_Lowest,
-      PLT: tests.PLT?.value < tests.PLT?.RI_Lowest,
-      FIB: tests.FIB?.value < tests.FIB?.RI_Lowest,
-      CRP: tests.CRP?.value > tests.CRP?.RI_Highest,
-      IG: tests.IG?.value > tests.IG?.RI_Highest,
-      LeftShift: tests.LeftShift?.value > tests.LeftShift?.RI_Highest,
-      WBC: tests.WBC?.value < tests.WBC?.RI_Lowest,
-      Globulin: tests.Globulin?.value > tests.Globulin?.RI_Highest,
-      CRE: tests.CRE?.value > tests.CRE?.RI_Highest,
-      URE: tests.URE?.value > tests.URE?.RI_Highest,
-      URE_Low: tests.URE?.value < tests.URE?.RI_Lowest,
-      CA: tests.CA?.value < tests.CA?.RI_Lowest,
-      P: tests.P?.value > tests.P?.RI_Highest,
-      ALT: tests.ALT?.value > tests.ALT?.RI_Highest,
-      AST: tests.AST?.value > tests.AST?.RI_Highest,
-      GGT: tests.GGT?.value > tests.GGT?.RI_Highest,
-      ALP: tests.ALP?.value > tests.ALP?.RI_Highest,
-      TB: tests.TB?.value > tests.TB?.RI_Highest,
-      FTP: tests.FTP?.value > tests.FTP?.RI_Highest,
-      HB: tests.HB?.value < tests.HB?.RI_Lowest,
-      CK: tests.CK?.value > tests.CK?.RI_Highest,
-      URE_CRE: tests.URE_CRE?.value > tests.URE_CRE?.RI_Highest,
-      LDH: tests.LDH?.value > tests.LDH?.RI_Highest, // Check if LDH is high
-      AMY: tests.AMY?.value > tests.AMY?.RI_Highest, // Check if AMY is high
-      HsTNI: tests.HsTNI?.value > tests.HsTNI?.RI_Highest, // Check if HsTNI is high
+      ALB: (tests.ALB?.value ?? 0) < (tests.ALB?.RI_Lowest ?? Infinity),
+      PLT: (tests.PLT?.value ?? 0) < (tests.PLT?.RI_Lowest ?? Infinity),
+      FIB: (tests.FIB?.value ?? 0) < (tests.FIB?.RI_Lowest ?? Infinity),
+      CRP: (tests.CRP?.value ?? 0) > (tests.CRP?.RI_Highest ?? -Infinity),
+      IG: (tests.IG?.value ?? 0) > (tests.IG?.RI_Highest ?? -Infinity),
+      LeftShift:
+        (tests.LeftShift?.value ?? 0) >
+        (tests.LeftShift?.RI_Highest ?? -Infinity),
+      WBC: (tests.WBC?.value ?? 0) < (tests.WBC?.RI_Lowest ?? Infinity),
+      Globulin:
+        (tests.Globulin?.value ?? 0) >
+        (tests.Globulin?.RI_Highest ?? -Infinity),
+      CRE: (tests.CRE?.value ?? 0) > (tests.CRE?.RI_Highest ?? -Infinity),
+      URE: (tests.URE?.value ?? 0) > (tests.URE?.RI_Highest ?? -Infinity),
+      URE_Low: (tests.URE?.value ?? 0) < (tests.URE?.RI_Lowest ?? Infinity),
+      CA: (tests.CA?.value ?? 0) < (tests.CA?.RI_Lowest ?? Infinity),
+      P: (tests.P?.value ?? 0) > (tests.P?.RI_Highest ?? -Infinity),
+      ALT: (tests.ALT?.value ?? 0) > (tests.ALT?.RI_Highest ?? -Infinity),
+      AST: (tests.AST?.value ?? 0) > (tests.AST?.RI_Highest ?? -Infinity),
+      GGT: (tests.GGT?.value ?? 0) > (tests.GGT?.RI_Highest ?? -Infinity),
+      ALP: (tests.ALP?.value ?? 0) > (tests.ALP?.RI_Highest ?? -Infinity),
+      TB: (tests.TB?.value ?? 0) > (tests.TB?.RI_Highest ?? -Infinity),
+      FTP: (tests.FTP?.value ?? 0) > (tests.FTP?.RI_Highest ?? -Infinity),
+      HB: (tests.HB?.value ?? 0) < (tests.HB?.RI_Lowest ?? Infinity),
+      CK: (tests.CK?.value ?? 0) > (tests.CK?.RI_Highest ?? -Infinity),
+      URE_CRE:
+        (tests.URE_CRE?.value ?? 0) > (tests.URE_CRE?.RI_Highest ?? -Infinity),
+      LDH: (tests.LDH?.value ?? 0) > (tests.LDH?.RI_Highest ?? -Infinity), // Check if LDH is high
+      AMY: (tests.AMY?.value ?? 0) > (tests.AMY?.RI_Highest ?? -Infinity), // Check if AMY is high
+      HsTNI: (tests.HsTNI?.value ?? 0) > (tests.HsTNI?.RI_Highest ?? -Infinity), // Check if HsTNI is high
     };
 
     let interpretation = "";
