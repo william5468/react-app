@@ -1,12 +1,25 @@
 import React, { useEffect } from "react";
 
-const LabTestSelector = ({
-  labTests,
-  selectedTestId,
-  setSelectedTestId,
-  handleCategoryChange,
+// Define a type for your lab test
+type LabTest = {
+  id: number; // or another type, such as number
+  name: string;
+};
+
+interface LabTestSelectorProps {
+  labTests?: LabTest[]; // Array of lab tests
+  selectedTestId: number | undefined; // Can be a string or undefined
+  setSelectedTestId: (id: number) => void; // Function to set selected test ID
+  handleCategoryChange: (id: number) => void; // Function to handle category change
+}
+
+const LabTestSelector: React.FC<LabTestSelectorProps> = ({
+  labTests = [],
+  selectedTestId = 0,
+  setSelectedTestId = () => {},
+  handleCategoryChange = () => {},
 }) => {
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     const currentIndex = labTests.findIndex(
       (test) => test.id === selectedTestId
     );

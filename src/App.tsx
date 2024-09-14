@@ -88,6 +88,8 @@ const App = () => {
     };
 
     const results = {
+      CHO: 0,
+      TG: 0, // Example of an undefined value
       ALB: (tests.ALB?.value ?? 0) < (tests.ALB?.RI_Lowest ?? Infinity),
       PLT: (tests.PLT?.value ?? 0) < (tests.PLT?.RI_Lowest ?? Infinity),
       FIB: (tests.FIB?.value ?? 0) < (tests.FIB?.RI_Lowest ?? Infinity),
@@ -126,7 +128,7 @@ const App = () => {
     // Check for liver only if category is "Liver"
     if (testData.some((test) => test.category === "Liver")) {
       if (results.ALT && results.AST) {
-        if (tests.ALT?.value > tests.AST?.value) {
+        if ((tests.ALT?.value ?? 0) > (tests.AST?.value ?? 0)) {
           interpretation +=
             "Suspect mild liver damage, consider chronic hepatitis / NAFLD.";
         } else {
@@ -147,8 +149,10 @@ const App = () => {
 
       if (results.TB) {
         interpretation += " TB high suggests compromised liver metabolism,";
-        const tbRatio =
-          (tests.TB?.value / (tests.TB?.value + tests.ALB?.value)) * 100;
+        const tbValue = tests.TB?.value ?? 0; // Default to 0 if undefined
+        const albValue = tests.ALB?.value ?? 0; // Default to 0 if undefined
+
+        const tbRatio = (tbValue / (tbValue + albValue)) * 100;
         if (tbRatio < 30) {
           interpretation += " if DB/TB <30% consider hemolysis.";
         } else if (tbRatio > 70) {
@@ -277,11 +281,11 @@ const App = () => {
       if (highCK && !highHsTNI) {
         interpretation += "Suspect Skeletal muscle origin.";
       }
-      if (tests.CK?.value > 1000) {
+      if ((tests.CK?.value ?? 0) > 1000) {
         interpretation += " Sky high CK supports rhabdomyolysis.";
       }
 
-      if (tests.CK.value / (tests.AST?.value || 1) > 10) {
+      if (tests.CK && tests.CK.value / (tests.AST?.value || 1) > 10) {
         interpretation += " High CK/AST ratio supports Skeletal muscle origin.";
       }
       if (highLDH && !highCK && !results.AST) {
