@@ -9,13 +9,28 @@
   
   .test-input {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+    align-items: center; /* Align items vertically center */
+    justify-content: space-between; /* Space between items */
+    margin-bottom: 1rem; /* Space between inputs */
   }
   
-  input {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  .test-name {
+    font-size: 1.2rem; /* Larger font size for test name */
+    flex: 1; /* Use flex to take available space */
+  }
+  
+  .test-details {
+    flex: 2; /* Use flex to take more space than the name */
+    text-align: center; /* Center align the text */
+  }
+  
+  .test-description,
+  .test-interval {
+    font-size: 0.9rem; /* Smaller font size for description and interval */
+    display: block; /* Each on a new line */
+  }
+  
+  .test-input-field {
     width: 100px; /* Fixed width for input */
+    margin-left: 1rem; /* Space between input and text */
   }
