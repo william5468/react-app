@@ -48,6 +48,7 @@ const App = () => {
   const ClearInterpretationMap = () => {
     return "";
   };
+
   // Example interpretation function
   const interpretationMap = (
     testData: {
@@ -58,6 +59,8 @@ const App = () => {
       category: string;
     }[]
   ) => {
+    // Extracting specific tests
+    // Extracting specific tests
     // Extracting specific tests
     // Extracting specific tests
     const tests = {
@@ -76,20 +79,32 @@ const App = () => {
       ALT: testData.find((test) => test.name === "ALT"),
       AST: testData.find((test) => test.name === "AST"),
       GGT: testData.find((test) => test.name === "GGT"),
-      ALP: testData.find((test) => test.name === "ALP"), // Added ALP test
+      ALP: testData.find((test) => test.name === "ALP"),
       TB: testData.find((test) => test.name === "TB"),
       FTP: testData.find((test) => test.name === "FTP"),
       HB: testData.find((test) => test.name === "HB"),
       CK: testData.find((test) => test.name === "CK"),
       URE_CRE: testData.find((test) => test.name === "URE/CRE"),
-      LDH: testData.find((test) => test.name === "LDH"), // Added LDH test
-      AMY: testData.find((test) => test.name === "AMY"), // Added AMY test
-      HsTNI: testData.find((test) => test.name === "HsTNI"), // Added HsTNI test
+      LDH: testData.find((test) => test.name === "LDH"),
+      AMY: testData.find((test) => test.name === "AMY"),
+      HsTNI: testData.find((test) => test.name === "HsTNI"),
+      MCV: testData.find((test) => test.name === "MCV"),
+      PT: testData.find((test) => test.name === "PT"),
+      APTT: testData.find((test) => test.name === "APTT"),
+      D_dimer: testData.find((test) => test.name === "D-dimer"),
+      NA: testData.find((test) => test.name === "NA"), // Added Na
+      K: testData.find((test) => test.name === "K"), // Added K
+      CL: testData.find((test) => test.name === "CL"), // Added Cl
+      PH: testData.find((test) => test.name === "PH"), // Added pH
+      PO2: testData.find((test) => test.name === "PO2"), // Added PO2
+      PCO2: testData.find((test) => test.name === "PCO2"), // Added PCO2
+      HCO3: testData.find((test) => test.name === "HCO3"), // Added HCO3
+      SaO2: testData.find((test) => test.name === "SaO2"), // Added SaO2
     };
 
     const results = {
       CHO: 0,
-      TG: 0, // Example of an undefined value
+      TG: 0,
       ALB: (tests.ALB?.value ?? 0) < (tests.ALB?.RI_Lowest ?? Infinity),
       PLT: (tests.PLT?.value ?? 0) < (tests.PLT?.RI_Lowest ?? Infinity),
       FIB: (tests.FIB?.value ?? 0) < (tests.FIB?.RI_Lowest ?? Infinity),
@@ -117,9 +132,21 @@ const App = () => {
       CK: (tests.CK?.value ?? 0) > (tests.CK?.RI_Highest ?? -Infinity),
       URE_CRE:
         (tests.URE_CRE?.value ?? 0) > (tests.URE_CRE?.RI_Highest ?? -Infinity),
-      LDH: (tests.LDH?.value ?? 0) > (tests.LDH?.RI_Highest ?? -Infinity), // Check if LDH is high
-      AMY: (tests.AMY?.value ?? 0) > (tests.AMY?.RI_Highest ?? -Infinity), // Check if AMY is high
-      HsTNI: (tests.HsTNI?.value ?? 0) > (tests.HsTNI?.RI_Highest ?? -Infinity), // Check if HsTNI is high
+      LDH: (tests.LDH?.value ?? 0) > (tests.LDH?.RI_Highest ?? -Infinity),
+      AMY: (tests.AMY?.value ?? 0) > (tests.AMY?.RI_Highest ?? -Infinity),
+      HsTNI: (tests.HsTNI?.value ?? 0) > (tests.HsTNI?.RI_Highest ?? -Infinity),
+      PT: (tests.PT?.value ?? 0) > (tests.PT?.RI_Highest ?? -Infinity),
+      APTT: (tests.APTT?.value ?? 0) > (tests.APTT?.RI_Highest ?? -Infinity),
+      D_dimer:
+        (tests.D_dimer?.value ?? 0) > (tests.D_dimer?.RI_Highest ?? -Infinity),
+      NA: tests.NA?.value ?? 0,
+      K: tests.K?.value ?? 0,
+      CL: tests.CL?.value ?? 0,
+      pH: tests.PH?.value ?? 0,
+      PO2: tests.PO2?.value ?? 0,
+      PCO2: tests.PCO2?.value ?? 0,
+      HCO3: tests.HCO3?.value ?? 0,
+      SaO2: tests.SaO2?.value ?? 0,
     };
 
     let interpretation = "";
@@ -200,6 +227,10 @@ const App = () => {
         interpretation += "Suspect sepsis. ";
       } else {
         interpretation += "Sepsis not likely. ";
+      }
+      if (lowPLT) {
+        interpretation +=
+          "Low PLT can occur in various infections (including Malaria), Malignancy & followed Chemotherapy, and MAHA/Thal/HS.";
       }
     }
 
@@ -331,7 +362,146 @@ const App = () => {
         ", "
       )}. `;
     }
+    // Anemia interpretation logic
+    if (testData.some((test) => test.category === "Anemia")) {
+      const refHBLowest = tests.HB?.RI_Lowest ?? Infinity;
+      const refMCVLowest = tests.MCV?.RI_Lowest ?? Infinity;
+      const refMCVHigh = tests.MCV?.RI_Highest ?? -Infinity;
 
+      // Check for anemia
+      if (tests.HB && tests.HB.value < refHBLowest) {
+        interpretation += "The patient has anemia. ";
+
+        if (tests.MCV && tests.MCV.value > refMCVHigh) {
+          interpretation +=
+            "Macrocytic anaemia, consider B12/Folate deficiency. ";
+        } else if (tests.MCV && tests.MCV.value < refMCVLowest) {
+          interpretation +=
+            "Microcytic anaemia, consider Thalassemia/Chronic disease. ";
+        } else {
+          interpretation +=
+            "Normocytic anaemia, consider Aplastic/Renal failure. ";
+        }
+
+        if (tests.URE_CRE && tests.URE_CRE.value > 20) {
+          // Adjust threshold as needed
+          interpretation +=
+            "GI bleeding suspected, which can be a cause of anaemia.";
+        } else {
+          interpretation +=
+            "GI bleeding not likely, consider hemorrhage from other sites as cause of anaemia.";
+        }
+      }
+    }
+
+    // Coagulation interpretation logic
+    if (testData.some((test) => test.category === "Coagulation")) {
+      const isPTHigh = results.PT;
+      const isAPTTHigh = results.APTT;
+      const isD_dimerHigh = results.D_dimer;
+      const isFIBLow =
+        (tests.FIB?.value ?? 0) < (tests.FIB?.RI_Lowest ?? Infinity);
+
+      if (isPTHigh && isAPTTHigh) {
+        if (isFIBLow && isD_dimerHigh) {
+          interpretation += "DIC/Sepsis suspected. ";
+        } else {
+          interpretation +=
+            "Factor deficiency due to Primary/Inhibitor/Liver disease/Vitamin K deficiency is suspected. ";
+        }
+      }
+      if (isD_dimerHigh) {
+        interpretation +=
+          "Other than DIC, D-dimer high in SIRS, heart disease, after surgery, RA, and pregnancy, please correlate with clinical detail.";
+      }
+    }
+    if (testData.some((test) => test.category === "Electrolyte")) {
+      // Electrolyte interpretation logic
+      const isNaHigh = results.NA > (tests.NA?.RI_Highest ?? Infinity);
+      const isNaLow = results.NA < (tests.NA?.RI_Lowest ?? -Infinity);
+      const isKHigh = results.K > (tests.K?.RI_Highest ?? Infinity);
+      const isKLow = results.K < (tests.K?.RI_Highest ?? Infinity);
+      const NaClDifference = results.NA - results.CL;
+
+      if (isNaHigh) {
+        interpretation +=
+          "Hypernatremia, please check TP / GLU / phone ward for IV NACL, HB & POsm for dehydration, ADH for DI. ";
+      } else if (isNaLow) {
+        interpretation +=
+          "Hyponatremia, please check TP / GLU / phone ward for Drip arm, TP / TG / CHO for Electrolyte exclusion effect, GLU for dilutional effect, UOsm for overhydration, clinical details of burn / vomit / diarrhea for hypovolemia, clinical details of Cirrhosis / CHF / Nephrotic syndrome / Hypothyroidism for high ADH caused by increased EABV, ADH / UA for SIADH / HCTZ, and K / ALDO / Cortisol for Adrenal insufficiency. ";
+      }
+
+      if (isKHigh) {
+        interpretation +=
+          "Hyperkalemia, please check CRE for CKD, PH for Acidosis (DKA), CK for Burn / Rhabdomyolysis, UA / P for carcinoma, BTNS for Transfusion, ALDO / Cortisol for Adrenal insufficiency, clinical details of ACEI / ARB use for induced Adrenal insufficiency, TSH / FT4 for Hypothyroidism. ";
+      }
+      if (isKLow) {
+        interpretation +=
+          "Hypokalemia,please check PH for Alkalosis (Vomiting) / Acidosis (Diarrhoea, GI loss > Shifting effect), MG for ROMK induced HypoK, clinical details of Hypertension for Thiazide diuretics use, ALDO / Cortisol for Cushing, TSH / FT4 for Hyperthyroidism. ";
+      }
+      if (NaClDifference < 30) {
+        interpretation += "Na-Cl < 30 suggests metabolic acidosis. ";
+      } else if (NaClDifference > 40) {
+        interpretation += "Na-Cl > 40 suggests metabolic alkalosis. ";
+      }
+    }
+    if (testData.some((test) => test.category === "Blood gas")) {
+      // Blood gas interpretation logic
+      const isMetabolicAcidosis = results.pH < 7.4 && results.HCO3 < 24;
+      const isRespiratoryAcidosis = results.pH < 7.4 && results.PCO2 > 40;
+      const isMetabolicAlkalosis = results.pH > 7.4 && results.HCO3 > 24;
+      const isRespiratoryAlkalosis = results.pH > 7.4 && results.PCO2 < 40;
+
+      if (isMetabolicAcidosis) {
+        interpretation += "Metabolic acidosis. ";
+      } else if (isRespiratoryAcidosis) {
+        interpretation += "Respiratory acidosis. ";
+      }
+      if (isMetabolicAlkalosis) {
+        interpretation += "Metabolic alkalosis. ";
+      } else if (isRespiratoryAlkalosis) {
+        interpretation += "Respiratory alkalosis. ";
+      }
+
+      // Calculate anion gap
+      const anionGap = results.NA - (results.CL + results.HCO3);
+      if (anionGap >= 14) {
+        interpretation += "HAGMA exist. ";
+      }
+
+      // Calculate corrected HCO3
+      const correctedHCO3 = results.HCO3 + (anionGap - 12);
+      if (correctedHCO3 > 26) {
+        interpretation += "Metabolic Alkalosis exist based on corrected HCO3. ";
+      }
+
+      // If metabolic acidosis, calculate PCO2 range
+      if (isMetabolicAcidosis) {
+        const highestPCO2 = 40 - 1 * (24 - results.HCO3);
+        const lowestPCO2 = 40 - 1.3 * (24 - results.HCO3);
+        if (results.PCO2 >= lowestPCO2 && results.PCO2 <= highestPCO2) {
+          interpretation += `PCO2 ${results.PCO2} within ${lowestPCO2.toFixed(
+            2
+          )} ~ ${highestPCO2.toFixed(
+            2
+          )}, PCO2 change can be explained by compensation. `;
+        } else {
+          if (results.PCO2 < lowestPCO2) {
+            interpretation += `PCO2 ${
+              results.PCO2
+            } not within ${lowestPCO2.toFixed(2)} ~ ${highestPCO2.toFixed(
+              2
+            )}, suggest coexistence of respiratory alkalosis. `;
+          } else {
+            interpretation += `PCO2 ${
+              results.PCO2
+            } not within ${lowestPCO2.toFixed(2)} ~ ${highestPCO2.toFixed(
+              2
+            )}, suggest insufficient compensation. `;
+          }
+        }
+      }
+    }
     return interpretation.trim();
   };
   // Define tests data with the correct type
@@ -418,8 +588,8 @@ const App = () => {
         id: 12,
         name: "URE/CRE",
         description: "Low ALB after GI bleeding",
-        RI_Lowest: 0,
-        RI_Highest: 0,
+        RI_Lowest: 8,
+        RI_Highest: 140,
       },
     ],
     2: [
@@ -480,8 +650,8 @@ const App = () => {
         id: 17,
         name: "FIB",
         description: "sepsis, inflammation, liver",
-        RI_Lowest: 0,
-        RI_Highest: 0,
+        RI_Lowest: 2,
+        RI_Highest: 4,
       },
       {
         id: 4,
@@ -630,8 +800,8 @@ const App = () => {
         id: 12,
         name: "URE/CRE",
         description: "GI bleeding",
-        RI_Lowest: 0,
-        RI_Highest: 0,
+        RI_Lowest: 8,
+        RI_Highest: 140,
       },
     ],
     10: [
@@ -653,8 +823,8 @@ const App = () => {
         id: 17,
         name: "FIB",
         description: "liver, sepsis",
-        RI_Lowest: 0,
-        RI_Highest: 0,
+        RI_Lowest: 2,
+        RI_Highest: 4,
       },
       {
         id: 30,
@@ -710,6 +880,22 @@ const App = () => {
         RI_Lowest: 23,
         RI_Highest: 27,
       },
+      {
+        id: 31,
+        name: "NA",
+        description:
+          "Hydration, ADH, cortisol, FT4, displacement, dilution, liver, kidney",
+        RI_Lowest: 137,
+        RI_Highest: 144,
+      },
+      {
+        id: 33,
+        name: "CL",
+        description: "Anion gap calculation, CL wasting metabolic alkalosis",
+        RI_Lowest: 98,
+        RI_Highest: 107,
+      },
+
       {
         id: 37,
         name: "PO2",
