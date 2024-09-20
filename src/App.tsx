@@ -870,8 +870,8 @@ const App = () => {
         id: 35,
         name: "PCO2",
         description: "Respiratory related acid-base change",
-        RI_Lowest: 25,
-        RI_Highest: 29,
+        RI_Lowest: 35,
+        RI_Highest: 45,
       },
       {
         id: 36,
