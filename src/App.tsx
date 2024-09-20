@@ -448,19 +448,19 @@ const App = () => {
     if (testData.some((test) => test.category === "Blood gas")) {
       // Blood gas interpretation logic
       const isMetabolicAcidosis = results.pH < 7.4 && results.HCO3 < 24;
-      const isRespiratoryAcidosis = results.pH < 7.4 && results.PCO2 > 40;
-      const isMetabolicAlkalosis = results.pH > 7.4 && results.HCO3 > 24;
+      const isRespiratoryAcidosis = results.pH < 7.4 && results.PCO2 >= 40;
+      const isMetabolicAlkalosis = results.pH > 7.4 && results.HCO3 >= 24;
       const isRespiratoryAlkalosis = results.pH > 7.4 && results.PCO2 < 40;
 
       if (isMetabolicAcidosis) {
-        interpretation += "Metabolic acidosis. ";
+        interpretation += "Metabolic acidosis. (pH<7.4 & HCO3<24)";
       } else if (isRespiratoryAcidosis) {
-        interpretation += "Respiratory acidosis. ";
+        interpretation += "Respiratory acidosis. (pH<7.4 & PCO2>=40 & HCO3>=24))";
       }
       if (isMetabolicAlkalosis) {
-        interpretation += "Metabolic alkalosis. ";
+        interpretation += "Metabolic alkalosis. (pH>7.4 & HCO3>=24)";
       } else if (isRespiratoryAlkalosis) {
-        interpretation += "Respiratory alkalosis. ";
+        interpretation += "Respiratory alkalosis. (pH>7.4 & PCO2<40 & HCO3<24)";
       }
 
       // Calculate anion gap
