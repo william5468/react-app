@@ -499,6 +499,7 @@ const App = () => {
             )}, suggest insufficient compensation. `;
           }        
       }
+      }
       // If metabolic acidosis, calculate PCO2 range
       if (isMetabolicAcidosis) {
         const highestPCO2 = 40 - 1 * (24 - results.HCO3);
