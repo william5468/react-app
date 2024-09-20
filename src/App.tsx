@@ -453,14 +453,14 @@ const App = () => {
       const isRespiratoryAlkalosis = results.pH > 7.4 && results.PCO2 < 40;
 
       if (isMetabolicAcidosis) {
-        interpretation += "Metabolic acidosis. (pH<7.4 & HCO3<24)";
+        interpretation += "Metabolic acidosis (pH<7.4 & HCO3<24).";
       } else if (isRespiratoryAcidosis) {
-        interpretation += "Respiratory acidosis. (pH<7.4 & PCO2>=40 & HCO3>=24))";
+        interpretation += "Respiratory acidosis (pH<7.4 & PCO2>=40 & HCO3>=24)).";
       }
       if (isMetabolicAlkalosis) {
-        interpretation += "Metabolic alkalosis. (pH>7.4 & HCO3>=24)";
+        interpretation += "Metabolic alkalosis (pH>7.4 & HCO3>=24).";
       } else if (isRespiratoryAlkalosis) {
-        interpretation += "Respiratory alkalosis. (pH>7.4 & PCO2<40 & HCO3<24)";
+        interpretation += "Respiratory alkalosis (pH>7.4 & PCO2<40 & HCO3<24).";
       }
 
       // Calculate anion gap
@@ -474,7 +474,31 @@ const App = () => {
       if (correctedHCO3 > 26) {
         interpretation += "Metabolic Alkalosis exist based on corrected HCO3. ";
       }
-
+      // If metabolic alkalosis, calculate PCO2 range
+      if (isMetabolicAlkalosis){
+        const highestPCO2 = 40 - 0.5 * (results.HCO3 - 24);
+        const lowestPCO2 = 40 - 1 * (results.HCO3 - 24); 
+        if (results.PCO2 >= lowestPCO2 && results.PCO2 <= highestPCO2) {
+          interpretation += `PCO2 ${results.PCO2} within ${lowestPCO2.toFixed(
+            2
+          )} ~ ${highestPCO2.toFixed(
+            2
+          )}, PCO2 change can be explained by compensation. `;
+        } else {
+          if (results.PCO2 < lowestPCO2) {
+            interpretation += `PCO2 ${
+              results.PCO2
+            } not within ${lowestPCO2.toFixed(2)} ~ ${highestPCO2.toFixed(
+              2
+            )}, suggest coexistence of respiratory acidosis. `;
+          } else {
+            interpretation += `PCO2 ${
+              results.PCO2
+            } not within ${lowestPCO2.toFixed(2)} ~ ${highestPCO2.toFixed(
+              2
+            )}, suggest insufficient compensation. `;
+          }        
+      }
       // If metabolic acidosis, calculate PCO2 range
       if (isMetabolicAcidosis) {
         const highestPCO2 = 40 - 1 * (24 - results.HCO3);
@@ -501,6 +525,32 @@ const App = () => {
           }
         }
       }
+
+      // If respiratory acidosis, calculate HCO3 range
+      if (isRespiratoryAcidosis){
+        const highestHCO3 = 24 - 0.1 * (40 - results.PCO2);
+        const lowestHCO3 = 24 - 0.35 * (40 - results.PCO2); 
+        if (results.HCO3 >= lowestHCO3 && results.HCO3 <= highestHCO3) {
+          interpretation += `HCO3 ${results.HCO3} within ${lowestHCO3.toFixed(
+            2
+          )} ~ ${highestHCO3.toFixed(
+            2
+          )}, HCO3 change can be explained by compensation for Chronic Respiratory Acidosis, suggest coexistence of metabolic alkalosis in Acute Respiratory Acidosis. `;
+        } else {
+          if (results.HCO3 < lowestHCO3) {
+            interpretation += `PCO2 ${
+              results.PCO2
+            } not within ${lowestPCO2.toFixed(2)} ~ ${highestPCO2.toFixed(
+              2
+            )}, suggest coexistence of metabolic alkalosis. `;
+          } else {
+            interpretation += `HCO3 ${
+              results.HCO3
+            } not within ${lowestHCO3.toFixed(2)} ~ ${highestHCO3.toFixed(
+              2
+            )}, suggest insufficient compensation. `;
+          }        
+      }        
     }
     return interpretation.trim();
   };
