@@ -547,7 +547,7 @@ const App = () => {
               results.HCO3
             } not within ${lowestHCO3.toFixed(2)} ~ ${highestHCO3.toFixed(
               2
-            )}, suggest insufficient compensation for Chronic Respiratory Acidosis, sufficient compensation for Acute Respiratory Acidosis.  `;
+            )}, lower than expected HCO3 suggest insufficient compensation for Respiratory Acidosis `;
           } else {
             interpretation += `HCO3 ${
               results.HCO3
