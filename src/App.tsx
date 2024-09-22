@@ -420,7 +420,7 @@ const App = () => {
       const isNaHigh = results.NA > (tests.NA?.RI_Highest ?? Infinity);
       const isNaLow = results.NA < (tests.NA?.RI_Lowest ?? -Infinity);
       const isKHigh = results.K > (tests.K?.RI_Highest ?? Infinity);
-      const isKLow = results.K < (tests.K?.RI_Highest ?? Infinity);
+      const isKLow = results.K < (tests.K?.RI_Lowest ?? -Infinity);
       const NaClDifference = results.NA - results.CL;
 
       if (isNaHigh) {
