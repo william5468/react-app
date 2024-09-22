@@ -557,6 +557,34 @@ const App = () => {
           }
         }
       }
+
+      // If respiratory alkalosis, calculate HCO3 range
+      if (isRespiratoryAlkalosis) {
+        const highestHCO3 = 24 - 0.2 * (results.PCO2 - 40);
+        const lowestHCO3 = 24 - 0.5 * (results.PCO2 - 40);
+        if (results.HCO3 >= lowestHCO3 && results.HCO3 <= highestHCO3) {
+          interpretation += `HCO3 ${results.HCO3} within ${lowestHCO3.toFixed(
+            2
+          )} ~ ${highestHCO3.toFixed(
+            2
+          )}, HCO3 change can be explained by compensation for Chronic Respiratory Alkalosis, suggest coexistence of metabolic acidosis in Acute Respiratory Alkalosis. `;
+        } else {
+          if (results.HCO3 < lowestHCO3) {
+            interpretation += `HCO3 ${
+              results.HCO3
+            } not within ${lowestHCO3.toFixed(2)} ~ ${highestHCO3.toFixed(
+              2
+            )}, lower than expected HCO3 suggest coexistence of metabolic acidosis.`;
+          } else {
+            interpretation += `HCO3 ${
+              results.HCO3
+            } not within ${lowestHCO3.toFixed(2)} ~ ${highestHCO3.toFixed(
+              2
+            )}, higher than expected HCO3 suggest insufficient compensation for Respiratory Alkalosis`;
+          }
+        }
+      }
+      
     }
     return interpretation.trim();
   };
