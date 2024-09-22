@@ -560,8 +560,8 @@ const App = () => {
 
       // If respiratory alkalosis, calculate HCO3 range
       if (isRespiratoryAlkalosis) {
-        const highestHCO3 = 24 - 0.2 * (results.PCO2 - 40);
-        const lowestHCO3 = 24 - 0.5 * (results.PCO2 - 40);
+        const highestHCO3 = 24 - 0.2 * (40 - results.PCO2);
+        const lowestHCO3 = 24 - 0.5 * (40 - results.PCO2);
         if (results.HCO3 >= lowestHCO3 && results.HCO3 <= highestHCO3) {
           interpretation += `HCO3 ${results.HCO3} within ${lowestHCO3.toFixed(
             2
