@@ -428,7 +428,7 @@ const App = () => {
           "Hypernatremia, please check TP / GLU / phone ward for IV NACL, HB & POsm for dehydration, ADH for DI. ";
       } else if (isNaLow) {
         interpretation +=
-          "Hyponatremia, please check TP / GLU / phone ward for Drip arm, TP / TG / CHO for Electrolyte exclusion effect, GLU for dilutional effect, UOsm for overhydration, clinical details of burn / vomit / diarrhea for hypovolemia, clinical details of Cirrhosis / CHF / Nephrotic syndrome / Hypothyroidism for high ADH caused by increased EABV, ADH / UA for SIADH / HCTZ, and K / ALDO / Cortisol for Adrenal insufficiency. ";
+          "Hyponatremia, please check TP / GLU / phone ward for Drip arm, TP / TG / CHO for Electrolyte exclusion effect, GLU for dilutional effect, UOsm for overhydration, clinical details of burn / vomit / diarrhea for hypovolemia, clinical details of Cirrhosis / CHF / Nephrotic syndrome / Hypothyroidism for high ADH caused by decreased EABV, ADH / UA for SIADH / HCTZ, and K / ALDO / Cortisol for Adrenal insufficiency. ";
       }
 
       if (isKHigh) {
@@ -474,9 +474,16 @@ const App = () => {
 
       // Calculate corrected HCO3
       const correctedHCO3 = results.HCO3 + (anionGap - 12);
-      if (correctedHCO3 > 26) {
-        interpretation += "Metabolic Alkalosis exist based on corrected HCO3. ";
+      if (correctedHCO3 > 26 && anionGap >=14) {
+        interpretation += "Metabolic Alkalosis also exist based on corrected HCO3 (${correctedHCO3}>26)";
       }
+      else if (correctedHCO3 < 22 && anionGap >=14) {
+        interpretation += "Non Gap Acidosis also exist based on corrected HCO3 (${correctedHCO3}<22)";
+      }
+      else if (anionGap >=14){
+        interpretation += "Pure Gap Acidossis based on corrected HCO3 (22<${correctedHCO3}<26);
+      }
+
 
       // If metabolic alkalosis, calculate PCO2 range
       if (isMetabolicAlkalosis) {
