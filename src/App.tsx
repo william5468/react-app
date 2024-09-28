@@ -469,7 +469,7 @@ const App = () => {
       // Calculate anion gap
       const anionGap = results.NA - (results.CL + results.HCO3);
       if (anionGap >= 14) {
-        interpretation += "HAGMA exist. ";
+        interpretation += `HAGMA exist　(${anionGap}).`;
       }
 
       // Calculate corrected HCO3
