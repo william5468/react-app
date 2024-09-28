@@ -475,13 +475,13 @@ const App = () => {
       // Calculate corrected HCO3
       const correctedHCO3 = results.HCO3 + (anionGap - 12);
       if (correctedHCO3 > 26 && anionGap >=14) {
-        interpretation += "Metabolic Alkalosis also exist based on corrected HCO3 (${correctedHCO3}>26)";
+        interpretation += "Metabolic Alkalosis also exist based on corrected HCO3 (${correctedHCO3.toFixed(2)}>26)";
       }
       else if (correctedHCO3 < 22 && anionGap >=14) {
-        interpretation += "Non Gap Acidosis also exist based on corrected HCO3 (${correctedHCO3}<22)";
+        interpretation += "Non Gap Acidosis also exist based on corrected HCO3 (${correctedHCO3.toFixed(2)}<22)";
       }
       else if (anionGap >=14){
-        interpretation += "Pure Gap Acidossis based on corrected HCO3 (22<${correctedHCO3}<26)";
+        interpretation += "Pure Gap Acidossis based on corrected HCO3 (22<${correctedHCO3.toFixed(2)}<26)";
       }
 
 
