@@ -481,7 +481,7 @@ const App = () => {
         interpretation += "Non Gap Acidosis also exist based on corrected HCO3 (${correctedHCO3}<22)";
       }
       else if (anionGap >=14){
-        interpretation += "Pure Gap Acidossis based on corrected HCO3 (22<${correctedHCO3}<26);
+        interpretation += "Pure Gap Acidossis based on corrected HCO3 (22<${correctedHCO3}<26)";
       }
 
 
